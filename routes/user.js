@@ -70,12 +70,6 @@ router.get('/all-users', auth, async (req, res) => {
     }
 })
 
-// users = users.filter((user) => {
-//     console.log(user._id, req.user._id)
-//     console.log(user._id != req.user._id)
-//     return user._id.toString() != req.user._id.toString()
-// })
-
 router.post('/view-user', auth, async (req, res) => {
     try {
         const user = await User.findById({ _id: req.body._id })
@@ -88,5 +82,7 @@ router.post('/view-user', auth, async (req, res) => {
         res.status(500).send(error)
     }
 })
+
+//REST API for sending follow request
 
 module.exports = router

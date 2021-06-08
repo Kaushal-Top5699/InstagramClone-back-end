@@ -51,6 +51,16 @@ router.get('/view-all-posts', auth, async (req, res) => {
         const limit = parseInt(req.query.limit)
         const timestamp = Number(req.query.timestamp.toString())
 
+        if (limit < 0) {
+            const posts = await Post.find().sort({ timestamp: -1 })
+            const postUID = []
+            posts.forEach(element => {
+                postUID.push(element._id)
+            })
+            res.status(201).send(postUID)
+            return
+        }
+
         if (timestamp == 0) {
 
             const posts = await Post.find().sort({ timestamp: -1 }).limit(limit)
